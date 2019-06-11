@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="winforms.controller.RootController">
+  <children>
+      <AnchorPane prefHeight="77.0" prefWidth="640.0">
+         <children>
+            <Label alignment="CENTER" layoutX="29.0" layoutY="14.0" prefHeight="27.0" prefWidth="316.0" style="&#10;" text="Podaj ilość operacji:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="oparationsNumber" layoutX="299.0" layoutY="15.0" prefHeight="27.0" prefWidth="200.0" />
+            <Button fx:id="start" layoutX="512.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#startProcessing" prefHeight="32.0" prefWidth="105.0" text="Start!" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="98.0" prefWidth="640.0">
+         <children>
+          <Button fx:id="multiplication" layoutX="500.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="96.0" text="Mnożenie" />
+            <Button fx:id="division" layoutX="381.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="96.0" text="Dzielenie" />
+            <Button fx:id="exponentiation" layoutX="102.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="96.0" text="Potęgowanie" />
+            <Button fx:id="subtraction" layoutX="221.0" layoutY="31.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="139.0" text="Odejmowanie" />
+        <Label alignment="CENTER" layoutX="205.0" layoutY="4.0" prefHeight="27.0" prefWidth="408.0" style="&#10;" text="Wybierz działanie:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label>
+         </children>
+      </AnchorPane>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="81.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+      <children>
+            <Label alignment="CENTER" layoutX="11.0" layoutY="23.0" prefHeight="27.0" prefWidth="408.0" style="&#10;" text="Podaj lokalizację pliku:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="filePath" layoutX="16.0" layoutY="60.0" prefHeight="35.0" prefWidth="402.0" />
+            <Button fx:id="setFile" layoutX="424.0" layoutY="61.0" mnemonicParsing="false" onMouseClicked="#setFile" prefHeight="32.0" prefWidth="105.0" text="Otwórz" />
+      </children>
+    </AnchorPane>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <AnchorPane prefHeight="100.0" prefWidth="287.0">
+               <children>
+                  <TextField fx:id="result" layoutX="24.0" layoutY="50.0" prefHeight="39.0" prefWidth="316.0" />
+                  <Label layoutX="24.0" layoutY="14.0" prefHeight="39.0" prefWidth="316.0" text="Aktualny wynik to:" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="100.0" prefWidth="297.0">
+               <children>
+                  <TextField fx:id="operationsTodo" layoutX="17.0" layoutY="37.0" prefHeight="49.0" prefWidth="168.0" />
+                  <Label prefHeight="35.0" prefWidth="200.0" text="Operacji do wykonania:" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+  </children>
+</VBox>
