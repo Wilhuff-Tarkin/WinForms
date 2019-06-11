@@ -1,4 +1,3 @@
-Program WinForms
 
 Przyjmuje jako input: Plik XML z liczbami
 
