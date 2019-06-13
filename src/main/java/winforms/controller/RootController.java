@@ -9,14 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import winforms.model.Entry;
 import winforms.service.ReadXML;
 
 public class RootController implements Initializable {
-
-    int a = 0;
-    int b = 0;
 
     @FXML
     private Button start;
@@ -34,7 +33,7 @@ public class RootController implements Initializable {
     private Button multiplication;
 
     @FXML
-    private Button setFile;
+    private Button readFile;
 
     @FXML
     private TextField operationsNumber;
@@ -51,19 +50,24 @@ public class RootController implements Initializable {
     @FXML
     private static Label userHint;
 
-
+    boolean operationSelected;
 
     // zacznij od podania lokazliacji pliku
     //
     // sprawdzwa poprawnosc pliku i
     // pobiera z pliku wartosci a i b
-        public String setFile (MouseEvent mouseEvent) {
+
+    //todo trzeba przeazac liste obiektow do metod wykonujacych obliczenia
+    //todo dodac loggery
+    // todo poprawic albo usunac te hinty
+
+
+
+        public String readFile (MouseEvent mouseEvent) {
 
         String path = filePath.getText();
         ReadXML.readXML(path);
-
         System.out.println("sciezka do pliku to = " + path);
-
         return path;
 
     }
@@ -76,9 +80,15 @@ public class RootController implements Initializable {
       //  System.out.println("operations = " + operations);
 
         try{
-            int operations = Integer.parseInt(operationsNumber.getText());
-            operationsTodo.setText(operationsNumber.getText());
-            System.out.println("operations = " + operations);
+           if (operationSelected) {
+               int operations = Integer.parseInt(operationsNumber.getText());
+               operationsTodo.setText(operationsNumber.getText());
+               System.out.println("operations = " + operations);
+           }
+           else {
+                userHint.setText("Najpierw wybierz operację!"); //przy tym sie krzaczy
+           }
+
 
         }catch (NumberFormatException ex) {
             System.out.println("to chyba nie jest int stary " + ex);
@@ -96,6 +106,34 @@ public class RootController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void performMultiplication(MouseEvent mouseEvent) {
+
+            operationSelected = true;
+
+
+
+    }
+
+    public void performDivision(MouseEvent mouseEvent) {
+
+        operationSelected = true;
+
+
+    }
+
+    public void performExponentiation(MouseEvent mouseEvent) {
+
+        operationSelected = true;
+
+
+    }
+
+    public void performSubtraction(MouseEvent mouseEvent) {
+        operationSelected = true;
+
 
     }
 }

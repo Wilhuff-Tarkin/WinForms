@@ -25,5 +25,11 @@ public class Entry {
         this.b = b;
     }
 
-
+    @Override
+    public String toString() {
+        return "Entry{" +
+                "a=" + a +
+                ", b=" + b +
+                '}';
+    }
 }
