@@ -10,9 +10,9 @@
 
 <VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="winforms.controller.RootController">
   <children>
-      <AnchorPane prefHeight="56.0" prefWidth="640.0">
+      <AnchorPane prefHeight="114.0" prefWidth="640.0">
          <children>
-            <Label fx:id="userHint" layoutX="23.0" layoutY="6.0" prefHeight="50.0" prefWidth="640.0" text="Zacznij od podania lokalizacji pliku poniżej..." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0" />
+            <Label fx:id="userHint" layoutX="69.0" layoutY="11.0" prefHeight="35.0" prefWidth="502.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="11.0" />
          </children>
       </AnchorPane>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="128.0" prefWidth="640.0">
@@ -24,6 +24,7 @@
             </Label>
             <TextField fx:id="filePath" layoutX="16.0" layoutY="60.0" prefHeight="35.0" prefWidth="402.0" />
             <Button fx:id="readFile" layoutX="424.0" layoutY="61.0" mnemonicParsing="false" onMouseClicked="#readFile" prefHeight="32.0" prefWidth="105.0" text="Otwórz" />
+            <Label fx:id="fileSelectorFeedback" layoutX="43.0" layoutY="106.0" prefHeight="17.0" prefWidth="345.0" />
       </children>
     </AnchorPane>
       <AnchorPane prefHeight="98.0" prefWidth="640.0">
@@ -39,15 +40,15 @@
         </Label>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="94.0" prefWidth="640.0">
+      <AnchorPane prefHeight="148.0" prefWidth="640.0">
          <children>
             <Label alignment="CENTER" layoutY="15.0" prefHeight="27.0" prefWidth="316.0" style="&#10;" text="Podaj ilość operacji (liczba całkowita):" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="operationsNumber" layoutX="314.0" layoutY="15.0" prefHeight="27.0" prefWidth="185.0" />
-            <Button fx:id="start" layoutX="512.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#startProcessing" prefHeight="32.0" prefWidth="105.0" text="Start!" />
+            <TextField fx:id="operationsNumber" layoutX="331.0" layoutY="15.0" prefHeight="27.0" prefWidth="263.0" />
+            <Button fx:id="start" layoutX="268.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#startProcessing" prefHeight="32.0" prefWidth="105.0" text="Start!" />
          </children>
       </AnchorPane>
       <HBox prefHeight="71.0" prefWidth="640.0">

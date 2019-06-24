@@ -9,13 +9,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.util.List;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
-
-import winforms.model.Entry;
 import winforms.service.ReadXML;
 
 public class RootController implements Initializable {
+
+    @FXML
+    public Label fileSelectorFeedback;
 
     @FXML
     private Button start;
@@ -48,9 +50,11 @@ public class RootController implements Initializable {
     private Label operationsTodo;
 
     @FXML
-    private static Label userHint;
+    private Label userHint;
 
     boolean operationSelected;
+
+
 
     // zacznij od podania lokazliacji pliku
     //
@@ -63,13 +67,38 @@ public class RootController implements Initializable {
 
 
 
-        public String readFile (MouseEvent mouseEvent) {
+        public String readFile (MouseEvent mouseEvent) throws InterruptedException {
 
         String path = filePath.getText();
-        ReadXML.readXML(path);
-        System.out.println("sciezka do pliku to = " + path);
+
+
+        //todo z jakiegos powodu wyrzuca ok takze wtedy kiedy sciezka nie jest prawidlowa..
+
+        if (isValidPath(path)) {
+            fileSelectorFeedback.setText("ok!");
+            ReadXML.readXML(path);
+            System.out.println("sciezka do pliku to = " + path);
+        }
+
+        else {
+            fileSelectorFeedback.setText("To nie jest własciwa nazwa pliku!");
+            Thread.sleep(3000);
+            fileSelectorFeedback.setText("Podaj prawidłową ścieżkę do pliku");
+
+        }
+
         return path;
 
+    }
+
+
+    public static boolean isValidPath(String path) {
+        try {
+            Paths.get(path);
+        } catch (InvalidPathException | NullPointerException ex) {
+            return false;
+        }
+        return true;
     }
 
 
@@ -86,7 +115,7 @@ public class RootController implements Initializable {
                System.out.println("operations = " + operations);
            }
            else {
-                userHint.setText("Najpierw wybierz operację!"); //przy tym sie krzaczy
+               setUserHint("najpierw wybierz operacje");
            }
 
 
@@ -96,8 +125,15 @@ public class RootController implements Initializable {
         }
 
 
+
+
     }
 
+
+    public void setUserHint(String newHint){
+        userHint.setText("Najpierw wybierz operację!"); //przy tym sie krzaczy
+
+    }
 
 
 
