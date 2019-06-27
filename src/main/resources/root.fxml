@@ -38,6 +38,7 @@
             <Font size="18.0" />
           </font>
         </Label>
+            <Label fx:id="operationSelectorFeedback" layoutX="85.0" layoutY="71.0" prefHeight="17.0" prefWidth="345.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="148.0" prefWidth="640.0">

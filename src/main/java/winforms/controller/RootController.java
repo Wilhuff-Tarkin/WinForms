@@ -8,8 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import winforms.service.ReadXML;
@@ -18,6 +22,7 @@ public class RootController implements Initializable {
 
     @FXML
     public Label fileSelectorFeedback;
+    public Label operationSelectorFeedback;
 
     @FXML
     private Button start;
@@ -63,7 +68,6 @@ public class RootController implements Initializable {
 
     //todo trzeba przeazac liste obiektow do metod wykonujacych obliczenia
     //todo dodac loggery
-    // todo poprawic albo usunac te hinty
 
 
 
@@ -72,19 +76,16 @@ public class RootController implements Initializable {
         String path = filePath.getText();
 
 
-        //todo z jakiegos powodu wyrzuca ok takze wtedy kiedy sciezka nie jest prawidlowa..
+        //todo wlasciwe operacje
 
         if (isValidPath(path)) {
-            fileSelectorFeedback.setText("ok!");
+            fileSelectorFeedback.setText("sciezka ok!");
             ReadXML.readXML(path);
             System.out.println("sciezka do pliku to = " + path);
         }
 
         else {
-            fileSelectorFeedback.setText("To nie jest własciwa nazwa pliku!");
-            Thread.sleep(3000);
             fileSelectorFeedback.setText("Podaj prawidłową ścieżkę do pliku");
-
         }
 
         return path;
@@ -92,27 +93,22 @@ public class RootController implements Initializable {
     }
 
 
-    public static boolean isValidPath(String path) {
-        try {
-            Paths.get(path);
-        } catch (InvalidPathException | NullPointerException ex) {
-            return false;
-        }
-        return true;
+    public static boolean isValidPath(String providedPath) {
+        File file = new File(providedPath);
+        return file.exists();
     }
-
 
 // wystartuje jezeli ma dobry plik i liczbe operacji
     public void startProcessing (MouseEvent mouseEvent) {
 
-        //String operations = oparationsNumber.getText();
-      //  System.out.println("operations = " + operations);
+
 
         try{
            if (operationSelected) {
                int operations = Integer.parseInt(operationsNumber.getText());
                operationsTodo.setText(operationsNumber.getText());
                System.out.println("operations = " + operations);
+
            }
            else {
                setUserHint("najpierw wybierz operacje");
@@ -148,7 +144,7 @@ public class RootController implements Initializable {
     public void performMultiplication(MouseEvent mouseEvent) {
 
             operationSelected = true;
-
+            operationSelectorFeedback.setText("wybrano mnozenie");
 
 
     }
@@ -156,6 +152,7 @@ public class RootController implements Initializable {
     public void performDivision(MouseEvent mouseEvent) {
 
         operationSelected = true;
+        operationSelectorFeedback.setText("wybrano dzielenie");
 
 
     }
@@ -163,12 +160,14 @@ public class RootController implements Initializable {
     public void performExponentiation(MouseEvent mouseEvent) {
 
         operationSelected = true;
+        operationSelectorFeedback.setText("wybrano potegowanie");
 
 
     }
 
     public void performSubtraction(MouseEvent mouseEvent) {
         operationSelected = true;
+        operationSelectorFeedback.setText("wybrano odejmowanie");
 
 
     }
