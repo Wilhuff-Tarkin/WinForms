@@ -1,28 +1,34 @@
 package winforms.controller;
 
 
+import com.sun.org.apache.bcel.internal.generic.SWITCH;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ResourceBundle;
+import javafx.scene.layout.AnchorPane;
+import winforms.model.Entry;
 import winforms.service.ReadXML;
+
+import javax.swing.*;
+import java.io.File;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class RootController implements Initializable {
 
     @FXML
     public Label fileSelectorFeedback;
+
+    @FXML
     public Label operationSelectorFeedback;
+    public ScrollPane scroll;
+    public AnchorPane scrollPn;
 
     @FXML
     private Button start;
@@ -57,7 +63,16 @@ public class RootController implements Initializable {
     @FXML
     private Label userHint;
 
-    boolean operationSelected;
+    private boolean operationSelected;
+    private List<Entry> entryList;
+    private String nameOfChoosenOperation;
+    private String report;
+    StringBuilder stringBuilderHeader;
+
+
+
+
+
 
 
 
@@ -80,7 +95,7 @@ public class RootController implements Initializable {
 
         if (isValidPath(path)) {
             fileSelectorFeedback.setText("sciezka ok!");
-            ReadXML.readXML(path);
+            entryList = ReadXML.readXML(path);
             System.out.println("sciezka do pliku to = " + path);
         }
 
@@ -88,7 +103,7 @@ public class RootController implements Initializable {
             fileSelectorFeedback.setText("Podaj prawidłową ścieżkę do pliku");
         }
 
-        return path;
+            return path;
 
     }
 
@@ -98,20 +113,39 @@ public class RootController implements Initializable {
         return file.exists();
     }
 
-// wystartuje jezeli ma dobry plik i liczbe operacji
-    public void startProcessing (MouseEvent mouseEvent) {
-
+    public void startProcessing (MouseEvent mouseEvent) throws InterruptedException {
 
 
         try{
            if (operationSelected) {
-               int operations = Integer.parseInt(operationsNumber.getText());
+               int operationsCounter = Integer.parseInt(operationsNumber.getText());
                operationsTodo.setText(operationsNumber.getText());
-               System.out.println("operations = " + operations);
+               System.out.println("operations = " + operationsCounter);
 
-           }
+               switch (nameOfChoosenOperation) {
+                   case "wybrano mnozenie":
+                       performMultiplication();
+                   break;
+                   case "wybrano dzielenie":
+                       performDivision();
+                       break;
+                   case "wybrano potegowanie":
+                       performExponentiation();
+                       break;
+                   case "wybrano odejmowanie":
+                       performSubtraction();
+                       break;
+                   default:
+               }
+
+               }
+
+
+
+
            else {
                setUserHint("najpierw wybierz operacje");
+               //todo logowanie
            }
 
 
@@ -122,6 +156,57 @@ public class RootController implements Initializable {
 
 
 
+
+    }
+
+    private void performSubtraction() {
+    }
+
+    private void performExponentiation() {
+    }
+
+    private void performDivision() {
+    }
+
+    private void performMultiplication() throws InterruptedException {
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Entry e: entryList) {
+
+            int totalResult = 0;
+            int operationsCounter = Integer.parseInt(operationsNumber.getText());
+
+            int a = e.getA();
+            int b = e.getB();
+            int tempB = b;
+            stringBuilder.append("################################");
+            stringBuilder.append("\n");
+            stringBuilder.append("wykonuje obliczenia dla ").append(e.getA()).append(" i ").append(e.getB());
+            stringBuilder.append("\n");
+
+            for (int i = 1; i <= operationsCounter ; i++) {
+
+                stringBuilder.append("\n");
+                tempB = a * tempB;
+              //  result.setText(String.valueOf(tempB));
+                totalResult = tempB;
+                stringBuilder.append("iteracja " + i);
+                stringBuilder.append("\n");
+
+                System.out.println(totalResult);
+                stringBuilder.append("wynik " + totalResult);
+                stringBuilder.append("\n");
+                TimeUnit.SECONDS.sleep(1);
+            }
+
+
+            //todo logger,
+
+            result.setText(String.valueOf(stringBuilder));
+            scroll.setContent(result);
+        }
 
     }
 
@@ -141,33 +226,41 @@ public class RootController implements Initializable {
 
     }
 
-    public void performMultiplication(MouseEvent mouseEvent) {
 
-            operationSelected = true;
-            operationSelectorFeedback.setText("wybrano mnozenie");
 
+    public void chooseMultiplication(MouseEvent mouseEvent) throws InterruptedException {
+
+        operationSelected = true;
+        operationSelectorFeedback.setText("wybrano mnozenie");
+        nameOfChoosenOperation = operationSelectorFeedback.getText();
 
     }
 
-    public void performDivision(MouseEvent mouseEvent) {
+
+
+    public void chooseDivision(MouseEvent mouseEvent) {
 
         operationSelected = true;
         operationSelectorFeedback.setText("wybrano dzielenie");
+        nameOfChoosenOperation = operationSelectorFeedback.getText();
+
 
 
     }
 
-    public void performExponentiation(MouseEvent mouseEvent) {
+    public void chooseExponentiation(MouseEvent mouseEvent) {
 
         operationSelected = true;
         operationSelectorFeedback.setText("wybrano potegowanie");
+        nameOfChoosenOperation = operationSelectorFeedback.getText();
 
 
     }
 
-    public void performSubtraction(MouseEvent mouseEvent) {
+    public void chooseSubtraction(MouseEvent mouseEvent) {
         operationSelected = true;
         operationSelectorFeedback.setText("wybrano odejmowanie");
+        nameOfChoosenOperation = operationSelectorFeedback.getText();
 
 
     }

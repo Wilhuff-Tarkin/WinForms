@@ -2,37 +2,38 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="winforms.controller.RootController">
+<VBox prefHeight="678.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="winforms.controller.RootController">
   <children>
-      <AnchorPane prefHeight="114.0" prefWidth="640.0">
+      <AnchorPane prefHeight="66.0" prefWidth="768.0">
          <children>
             <Label fx:id="userHint" layoutX="69.0" layoutY="11.0" prefHeight="35.0" prefWidth="502.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="11.0" />
+          <AnchorPane layoutY="11.0" maxHeight="-1.0" maxWidth="-1.0">
+            <children>
+                  <Label alignment="CENTER" layoutX="11.0" layoutY="23.0" prefHeight="27.0" prefWidth="408.0" style="&#10;" text="Podaj lokalizację pliku:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="filePath" layoutX="16.0" layoutY="60.0" prefHeight="35.0" prefWidth="402.0" />
+                  <Button fx:id="readFile" layoutX="424.0" layoutY="61.0" mnemonicParsing="false" onMouseClicked="#readFile" prefHeight="32.0" prefWidth="105.0" text="Otwórz" />
+                  <Label fx:id="fileSelectorFeedback" layoutX="43.0" layoutY="106.0" prefHeight="17.0" prefWidth="345.0" />
+            </children>
+          </AnchorPane>
          </children>
       </AnchorPane>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="128.0" prefWidth="640.0">
-      <children>
-            <Label alignment="CENTER" layoutX="11.0" layoutY="23.0" prefHeight="27.0" prefWidth="408.0" style="&#10;" text="Podaj lokalizację pliku:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TextField fx:id="filePath" layoutX="16.0" layoutY="60.0" prefHeight="35.0" prefWidth="402.0" />
-            <Button fx:id="readFile" layoutX="424.0" layoutY="61.0" mnemonicParsing="false" onMouseClicked="#readFile" prefHeight="32.0" prefWidth="105.0" text="Otwórz" />
-            <Label fx:id="fileSelectorFeedback" layoutX="43.0" layoutY="106.0" prefHeight="17.0" prefWidth="345.0" />
-      </children>
-    </AnchorPane>
-      <AnchorPane prefHeight="98.0" prefWidth="640.0">
+      <AnchorPane>
          <children>
-          <Button fx:id="multiplication" layoutX="500.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#performMultiplication" prefHeight="35.0" prefWidth="96.0" text="Mnożenie" />
-            <Button fx:id="division" layoutX="381.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#performDivision" prefHeight="35.0" prefWidth="96.0" text="Dzielenie" />
-            <Button fx:id="exponentiation" layoutX="102.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#performExponentiation" prefHeight="35.0" prefWidth="96.0" text="Potęgowanie" />
-            <Button fx:id="subtraction" layoutX="221.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#performSubtraction" prefHeight="35.0" prefWidth="139.0" text="Odejmowanie" />
+          <Button fx:id="multiplication" layoutX="500.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#chooseMultiplication" prefHeight="35.0" prefWidth="96.0" text="Mnożenie" />
+            <Button fx:id="division" layoutX="381.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#chooseDivision" prefHeight="35.0" prefWidth="96.0" text="Dzielenie" />
+            <Button fx:id="exponentiation" layoutX="102.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#chooseExponentiation" prefHeight="35.0" prefWidth="96.0" text="Potęgowanie" />
+            <Button fx:id="subtraction" layoutX="221.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#chooseSubtraction" prefHeight="35.0" prefWidth="139.0" text="Odejmowanie" />
         <Label alignment="CENTER" layoutX="27.0" layoutY="4.0" prefHeight="27.0" prefWidth="586.0" style="&#10;" text="Wybierz działanie:" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
           <font>
             <Font size="18.0" />
@@ -41,7 +42,7 @@
             <Label fx:id="operationSelectorFeedback" layoutX="85.0" layoutY="71.0" prefHeight="17.0" prefWidth="345.0" />
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="148.0" prefWidth="640.0">
+      <AnchorPane prefHeight="54.0">
          <children>
             <Label alignment="CENTER" layoutY="15.0" prefHeight="27.0" prefWidth="316.0" style="&#10;" text="Podaj ilość operacji (liczba całkowita):" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                <font>
@@ -49,23 +50,25 @@
                </font>
             </Label>
             <TextField fx:id="operationsNumber" layoutX="331.0" layoutY="15.0" prefHeight="27.0" prefWidth="263.0" />
-            <Button fx:id="start" layoutX="268.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#startProcessing" prefHeight="32.0" prefWidth="105.0" text="Start!" />
          </children>
       </AnchorPane>
-      <HBox prefHeight="71.0" prefWidth="640.0">
+      <HBox prefHeight="332.0">
          <children>
-            <AnchorPane prefHeight="100.0" prefWidth="287.0">
+            <AnchorPane prefHeight="86.0" prefWidth="262.0">
                <children>
-                  <Label layoutX="24.0" layoutY="14.0" prefHeight="39.0" prefWidth="316.0" text="Aktualny wynik to:" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Label fx:id="result" layoutX="24.0" layoutY="56.0" prefHeight="35.0" prefWidth="201.0" />
+                  <Label layoutY="14.0" prefHeight="17.0" prefWidth="201.0" text="Wykonanych operacji dla kazdej pary:" AnchorPane.bottomAnchor="301.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="61.0" AnchorPane.topAnchor="14.0" />
+                  <Label fx:id="operationsTodo" layoutX="91.0" layoutY="46.0" prefHeight="48.0" prefWidth="64.0" />
+                  <Button fx:id="start" layoutX="44.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#startProcessing" prefHeight="113.0" prefWidth="157.0" text="Start!" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="78.0" prefWidth="297.0">
-               <children>
-                  <Label layoutY="33.0" prefHeight="57.0" prefWidth="178.0" text="Operacji do wykonania:" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="119.0" AnchorPane.topAnchor="33.0" />
-                  <Label fx:id="operationsTodo" layoutX="167.0" layoutY="25.0" prefHeight="35.0" prefWidth="117.0" />
-               </children>
-            </AnchorPane>
+            <ScrollPane fx:id="scroll" prefHeight="332.0" prefWidth="316.0">
+              <content>
+                <AnchorPane fx:id="scrollPn" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="result" AnchorPane.bottomAnchor="-109.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+              </content>
+            </ScrollPane>
          </children>
       </HBox>
   </children>
