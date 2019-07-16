@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) Grzegorz Koziczak
+ */
+
 package winforms.model;
 
 public class Entry {

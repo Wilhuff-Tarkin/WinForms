@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) Grzegorz Koziczak
+ */
+
 package winforms.controller;
 
 
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import winforms.model.Entry;
 import winforms.service.ReadXML;
 
-import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
@@ -24,156 +27,67 @@ public class RootController implements Initializable {
 
     @FXML
     public Label fileSelectorFeedback;
-
-    @FXML
     public Label operationSelectorFeedback;
     public ScrollPane scroll;
     public AnchorPane scrollPn;
-
-    @FXML
     private Button start;
-
-    @FXML
-    private Button exponentiation;
-
-    @FXML
+    private Button addition;
     private Button subtraction;
-
-    @FXML
     private Button division;
-
-    @FXML
     private Button multiplication;
-
-    @FXML
     private Button readFile;
-
-    @FXML
     private TextField operationsNumber;
-
-    @FXML
     private TextField filePath;
-
-    @FXML
     private Label result;
-
-    @FXML
     private Label operationsTodo;
-
-    @FXML
-    private Label userHint;
 
     private boolean operationSelected;
     private List<Entry> entryList;
     private String nameOfChoosenOperation;
-    private String report;
-    StringBuilder stringBuilderHeader;
 
 
-
-
-
-
-
-
-    // zacznij od podania lokazliacji pliku
-    //
-    // sprawdzwa poprawnosc pliku i
-    // pobiera z pliku wartosci a i b
-
-    //todo trzeba przeazac liste obiektow do metod wykonujacych obliczenia
-    //todo dodac loggery
-
-
-
-        public String readFile (MouseEvent mouseEvent) throws InterruptedException {
+    public String readFile(MouseEvent mouseEvent) {
 
         String path = filePath.getText();
 
-
-        //todo wlasciwe operacje
-
         if (isValidPath(path)) {
-            fileSelectorFeedback.setText("sciezka ok!");
+            fileSelectorFeedback.setText("Patch correct!");
             entryList = ReadXML.readXML(path);
-            System.out.println("sciezka do pliku to = " + path);
+            System.out.println("File path selected = " + path);
+        } else {
+            fileSelectorFeedback.setText("File path not correct!");
         }
-
-        else {
-            fileSelectorFeedback.setText("Podaj prawidłową ścieżkę do pliku");
-        }
-
-            return path;
-
+        return path;
     }
 
 
-    public static boolean isValidPath(String providedPath) {
+    private static boolean isValidPath(String providedPath) {
         File file = new File(providedPath);
         return file.exists();
     }
 
-    public void startProcessing (MouseEvent mouseEvent) throws InterruptedException {
+    public void startProcessing(MouseEvent mouseEvent) throws InterruptedException {
 
 
-        try{
-           if (operationSelected) {
-               int operationsCounter = Integer.parseInt(operationsNumber.getText());
-               operationsTodo.setText(operationsNumber.getText());
-               System.out.println("operations = " + operationsCounter);
+        try {
+            if (operationSelected) {
+                int operationsCounter = Integer.parseInt(operationsNumber.getText());
+                operationsTodo.setText(operationsNumber.getText());
+                System.out.println("operations = " + operationsCounter);
+                performCalculations();
 
-               switch (nameOfChoosenOperation) {
-                   case "wybrano mnozenie":
-                       performMultiplication();
-                   break;
-                   case "wybrano dzielenie":
-                       performDivision();
-                       break;
-                   case "wybrano potegowanie":
-                       performExponentiation();
-                       break;
-                   case "wybrano odejmowanie":
-                       performSubtraction();
-                       break;
-                   default:
-               }
+            }
 
-               }
-
-
-
-
-           else {
-               setUserHint("najpierw wybierz operacje");
-               //todo logowanie
-           }
-
-
-        }catch (NumberFormatException ex) {
-            System.out.println("to chyba nie jest int stary " + ex);
-            //TODO logowanie bledu
+        } catch (NumberFormatException ex) {
+            System.out.println("Please insert an integer " + ex);
         }
-
-
-
-
     }
 
-    private void performSubtraction() {
-    }
-
-    private void performExponentiation() {
-    }
-
-    private void performDivision() {
-    }
-
-    private void performMultiplication() throws InterruptedException {
-
+    private void performCalculations() throws InterruptedException {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (Entry e: entryList) {
+        for (Entry e : entryList) {
 
             int totalResult = 0;
             int operationsCounter = Integer.parseInt(operationsNumber.getText());
@@ -183,85 +97,79 @@ public class RootController implements Initializable {
             int tempB = b;
             stringBuilder.append("################################");
             stringBuilder.append("\n");
-            stringBuilder.append("wykonuje obliczenia dla ").append(e.getA()).append(" i ").append(e.getB());
+            stringBuilder.append("Performing calculations for ").append(e.getA()).append(" i ").append(e.getB());
             stringBuilder.append("\n");
 
-            for (int i = 1; i <= operationsCounter ; i++) {
+            for (int i = 1; i <= operationsCounter; i++) {
 
                 stringBuilder.append("\n");
-                tempB = a * tempB;
-              //  result.setText(String.valueOf(tempB));
+
+                switch (nameOfChoosenOperation) {
+                    case "mutliplication requested":
+                        tempB = a * tempB;
+                        break;
+                    case "division requested":
+                        if (tempB != 0) {
+                            tempB = a / tempB;
+                        } else stringBuilder.append("cannot divide by 0!");
+                        stringBuilder.append("\n");
+
+                        break;
+                    case "addition requested":
+                        tempB = a + tempB;
+                        break;
+                    case "subtraction requested":
+                        tempB = a - tempB;
+                        break;
+                    default:
+                }
+
                 totalResult = tempB;
-                stringBuilder.append("iteracja " + i);
+                stringBuilder.append("operation #" + i);
                 stringBuilder.append("\n");
 
                 System.out.println(totalResult);
-                stringBuilder.append("wynik " + totalResult);
+                stringBuilder.append("Result = " + totalResult);
                 stringBuilder.append("\n");
                 TimeUnit.SECONDS.sleep(1);
             }
 
-
-            //todo logger,
-
             result.setText(String.valueOf(stringBuilder));
             scroll.setContent(result);
         }
-
     }
-
-
-    public void setUserHint(String newHint){
-        userHint.setText("Najpierw wybierz operację!"); //przy tym sie krzaczy
-
-    }
-
-
-
-
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
-
 
 
     public void chooseMultiplication(MouseEvent mouseEvent) throws InterruptedException {
 
         operationSelected = true;
-        operationSelectorFeedback.setText("wybrano mnozenie");
+        operationSelectorFeedback.setText("mutliplication requested");
         nameOfChoosenOperation = operationSelectorFeedback.getText();
-
     }
-
 
 
     public void chooseDivision(MouseEvent mouseEvent) {
 
         operationSelected = true;
-        operationSelectorFeedback.setText("wybrano dzielenie");
+        operationSelectorFeedback.setText("division requested");
         nameOfChoosenOperation = operationSelectorFeedback.getText();
-
-
-
     }
 
-    public void chooseExponentiation(MouseEvent mouseEvent) {
+    public void chooseAddition(MouseEvent mouseEvent) {
 
         operationSelected = true;
-        operationSelectorFeedback.setText("wybrano potegowanie");
+        operationSelectorFeedback.setText("addition requested");
         nameOfChoosenOperation = operationSelectorFeedback.getText();
-
-
     }
 
     public void chooseSubtraction(MouseEvent mouseEvent) {
         operationSelected = true;
-        operationSelectorFeedback.setText("wybrano odejmowanie");
+        operationSelectorFeedback.setText("subtraction requested");
         nameOfChoosenOperation = operationSelectorFeedback.getText();
-
-
     }
 }
