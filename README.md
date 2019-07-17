@@ -27,4 +27,15 @@ A = 4, B = 3, operation = multiplication, number of operations = 3
 
 Result of each cycle should be displayed to user.
 
-:rocket:
+**to run it**
+Download jar from here:
+
+XML_calculus/out/artifacts/WinForms_jar/WinForms.jar
+and run it using:
+```
+java -jar WinForms.jar
+```
+you can also use this xml for tests:
+
+XML_calculus/src/main/resources/new.xml
+ :rocket:
