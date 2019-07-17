@@ -4,8 +4,6 @@
 
 package winforms.controller;
 
-
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,18 +25,33 @@ public class RootController implements Initializable {
 
     @FXML
     public Label fileSelectorFeedback;
+
+    @FXML
     public Label operationSelectorFeedback;
+
+    @FXML
     public ScrollPane scroll;
+
+    @FXML
     public AnchorPane scrollPn;
+
     private Button start;
     private Button addition;
     private Button subtraction;
     private Button division;
     private Button multiplication;
     private Button readFile;
+
+    @FXML
     private TextField operationsNumber;
+
+    @FXML
     private TextField filePath;
+
+    @FXML
     private Label result;
+
+    @FXML
     private Label operationsTodo;
 
     private boolean operationSelected;
@@ -46,8 +59,8 @@ public class RootController implements Initializable {
     private String nameOfChoosenOperation;
 
 
-    public String readFile(MouseEvent mouseEvent) {
 
+    public String readFile(MouseEvent mouseEvent) {
         String path = filePath.getText();
 
         if (isValidPath(path)) {
@@ -68,14 +81,12 @@ public class RootController implements Initializable {
 
     public void startProcessing(MouseEvent mouseEvent) throws InterruptedException {
 
-
         try {
             if (operationSelected) {
                 int operationsCounter = Integer.parseInt(operationsNumber.getText());
                 operationsTodo.setText(operationsNumber.getText());
                 System.out.println("operations = " + operationsCounter);
                 performCalculations();
-
             }
 
         } catch (NumberFormatException ex) {
@@ -146,7 +157,6 @@ public class RootController implements Initializable {
 
 
     public void chooseMultiplication(MouseEvent mouseEvent) throws InterruptedException {
-
         operationSelected = true;
         operationSelectorFeedback.setText("mutliplication requested");
         nameOfChoosenOperation = operationSelectorFeedback.getText();
@@ -154,14 +164,12 @@ public class RootController implements Initializable {
 
 
     public void chooseDivision(MouseEvent mouseEvent) {
-
         operationSelected = true;
         operationSelectorFeedback.setText("division requested");
         nameOfChoosenOperation = operationSelectorFeedback.getText();
     }
 
     public void chooseAddition(MouseEvent mouseEvent) {
-
         operationSelected = true;
         operationSelectorFeedback.setText("addition requested");
         nameOfChoosenOperation = operationSelectorFeedback.getText();

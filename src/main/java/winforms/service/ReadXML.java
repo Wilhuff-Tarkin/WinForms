@@ -40,19 +40,15 @@ public class ReadXML {
                 }
             }
 
-
             for (Entry e : list){
                 System.out.println("e = " + e);
             }
-
             in.close();
           }
           catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
-
           }
           return list;
     }
-
 }
 
