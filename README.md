@@ -2,7 +2,7 @@
 
 Brief:
 
-App should accept as input .xml file with below structure:
+App should accept .xml file as input with structure as shown below:
 
 ```
 <input>
