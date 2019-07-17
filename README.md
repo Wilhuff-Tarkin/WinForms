@@ -14,9 +14,15 @@ Brief:
 >After "run" button is pressed application should perform selected operation requested number of times replacing the "b" value in each cycle for the resul of the previous one;
 
 Example:
-A = 2, B = 2, operatio n=  multiplication, number of operations = 3
+
+A = 2, B = 2, operation = multiplication, number of operations = 3
+
 2 * 2 = 4
+
 2 * 4 = 8
+
 2 * 8 = 16
 
 >Result of each cycle should be displayed to user.
+
+:rocket:
